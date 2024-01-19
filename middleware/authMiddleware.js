@@ -11,10 +11,8 @@ const requireAuth = (req, res, next) => {
   if(token){
     jwt.verify(token,process.env.JWT_SECRET_KEY, (err, decodedToken)=>{
       if(err){
-        next();
-        
+        res.status(401).json({message:'not token'});        
       }else{
-        console.log(decodedToken);
         next();
       }
       

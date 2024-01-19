@@ -8,6 +8,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT ||  3000;
 require("./Connexion"); // Import MongoDB connectionq
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
+// swagger
+const swaggerJsdoc = require("swagger-jsdoc")
+const swaggerUi = require("swagger-ui-express")
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
+
 //Parsers
 app.use(express.json());
 

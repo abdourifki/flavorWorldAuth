@@ -1,0 +1,183 @@
+openapi: 3.0.0
+info:
+  title: Recipies API
+  version: 1.0.0
+paths:
+  /recepies:
+    get:
+      summary: Obtient toutes les recettes
+      tags:
+        - Recettes
+      security:
+        - BearerAuth: []  # Spécifiez le schéma de sécurité utilisé (dans ce cas, Bearer Token)
+      responses:
+        '200':
+          description: Liste de toutes les recettes
+        '401':
+          description: Non autorisé, jeton manquant ou expiré
+    post:
+      summary: Crée une nouvelle recette
+      tags:
+        - Recettes
+      requestBody:
+        description: Données de la recette à créer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipeName:
+                 type: string,
+                 ingredients:
+                  type: array,
+                  instructions:
+                   type: array
+                
+                
+      responses:
+        '201':
+          description: Recette créée avec succès
+        '400':
+          description: Erreur lors de la création de la recette
+  /recepies/{id}:
+    get:
+      summary: Obtient une recette par ID
+      tags:
+        - Recettes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID de la recette
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détails de la recette
+        '404':
+          description: Recette non trouvée
+    put:
+      summary: Met à jour une recette par ID
+      tags:
+        - Recettes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID de la recette à mettre à jour
+          schema:
+            type: string
+      requestBody:
+        description: Nouvelles données de la recette
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipeName:
+                 type: string,
+                 ingredients:
+                  type: array,
+                  instructions:
+                   type: array
+      responses:
+        '200':
+          description: Recette mise à jour avec succès
+        '404':
+          description: Recette non trouvée
+        '400':
+          description: Erreur lors de la mise à jour de la recette
+    delete:
+      summary: Supprime une recette par ID
+      tags:
+        - Recettes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID de la recette à supprimer
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Recette supprimée avec succès
+        '404':
+          description: Recette non trouvée
+        '400':
+          description: Erreur lors de la suppression de la recette
+  /signup:
+    post:
+      summary: Crée un nouvel utilisateur
+      tags:
+        - Authentification
+      requestBody:
+        description: Données de l'utilisateur à créer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Utilisateur créé avec succès
+          content:
+            application/json:
+              example:
+                user: "ID de l'utilisateur"
+        '400':
+          description: Erreur lors de la création de l'utilisateur
+          content:
+            application/json:
+              example:
+                errors: ["Message d'erreur 1", "Message d'erreur 2"]
+
+  /login:
+    post:
+      summary: Authentification de l'utilisateur
+      tags:
+        - Authentification
+      requestBody:
+        description: Informations d'identification de l'utilisateur
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Authentification réussie
+          content:
+            application/json:
+              example:
+                user: "ID de l'utilisateur"
+        '401':
+          description: Échec de l'authentification
+          content:
+            application/json:
+              example:
+                error: "Message d'erreur d'authentification"
+  
+  /logout:
+    get:
+      summary: Déconnexion de l'utilisateur
+      tags:
+        - Authentification
+      responses:
+        '200':
+          description: Déconnexion réussie
+          content:
+            application/json:
+              example:
+                message: "Déconnexion réussie"

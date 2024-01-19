@@ -5,10 +5,10 @@ const requireAuth = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.get('/recepies',requireAuth, recepieController.getAllRecepies);
+router.get('/recepies', recepieController.getAllRecepies);
 router.get('/recepies/:id', recepieController.getRecepieById);
-router.post('/recepies', recepieController.postRecepie);
-router.put('/recepies/:id', recepieController.updateRecepie);
-router.delete('/recepies/:id', recepieController.deleteRecepie);
+router.post('/recepies',requireAuth, recepieController.postRecepie);
+router.put('/recepies/:id',requireAuth, recepieController.updateRecepie);
+router.delete('/recepies/:id',requireAuth, recepieController.deleteRecepie);
 
 module.exports = router;

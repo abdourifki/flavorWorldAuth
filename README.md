@@ -49,3 +49,43 @@ you will need to create `.env` file and add the following environment variables 
 Then start the server by running:
 
 `npm start`  **or**  `yarn start` 
+
+## authentification
+
+## Authentication
+
+### Signup
+
+**Endpoint:** `POST /signup`
+
+Creates a new user account.
+
+Request Body:
+```json
+{
+  "email": "user@example.com",
+  "password": "your_password"
+}
+
+### login
+
+**Endpoint:** `POST /login`
+
+Authenticates a user.
+
+Request Body:
+  ```json
+{
+  "email": "user@example.com",
+  "password": "your_password"
+}
+
+### Logout
+Endpoint: GET /logout
+
+Logs out the user.
+
+Response:
+{
+  "message": "Déconnexion réussie"
+}
